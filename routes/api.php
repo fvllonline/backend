@@ -7,6 +7,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyPhotoController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ContactController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -45,4 +46,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/reviews', [ReviewController::class, 'store']);
     Route::put('/reviews/{id}', [ReviewController::class, 'update']);
     Route::delete('/reviews/{id}', [ReviewController::class, 'destroy']);
+});
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/contacts', [ContactController::class, 'store']);  // Ajouter un contact (owner)
+    Route::get('/contacts/{user_id}', [ContactController::class, 'show']);  // Voir les contacts d'un propriétaire
+    Route::put('/contacts/{id}', [ContactController::class, 'update']);  // Modifier un contact
+    Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);  // Supprimer un contact
 });
